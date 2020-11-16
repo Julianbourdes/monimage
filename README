@@ -1,1 +1,14 @@
-COMPOSE_DOCKER_CLI_BUILD=1 docker-compose up --build
+Un exemple de jdbc avec docker.
+
+Cette exemple utilise un compilation multi stage avec buildkit.
+
+Compiler avec
+COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose build
+
+Pousser sur dockerhub avec
+COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose push
+
+Exécuter avec
+COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose up
+Ajouter -d pour lancer en daemon
+et/ou --build
