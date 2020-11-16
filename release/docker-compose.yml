@@ -1,0 +1,30 @@
+version: "3"
+services:
+  pg13:
+    image: postgres:13
+#    ports:
+#      - 5433:5432
+    volumes:
+      - pgdata13:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=mydb
+
+  pg12:
+    image: postgres:12
+#    ports:
+#      - 5432:5432
+    volumes:
+      - pgdata12:/var/lib/postgresql/data
+    environment:
+        - POSTGRES_USER=postgres
+        - POSTGRES_PASSWORD=password
+        - POSTGRES_DB=mydb
+  myapp:
+    image: brunoe/monimage_myapp
+    links:
+      - "pg13:db"
+volumes:
+  pgdata12: {}
+  pgdata13: {}
