@@ -6,6 +6,5 @@ RUN --mount=type=cache,target=/root/.m2 \
 
 
 FROM adoptopenjdk/openjdk11:jre-11.0.9_11-ubuntu 
-
 COPY --from=builder /MyApp/target/MyApp-*-jar-with-dependencies.jar /MyApp.jar
 CMD java -cp /MyApp.jar fr.univtln.bruno.samples.App

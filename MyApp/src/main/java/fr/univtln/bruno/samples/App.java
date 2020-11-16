@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Properties;
 
@@ -18,18 +17,18 @@ import java.util.Properties;
 public class App {
     private static Properties properties = new Properties();
 
-    public static void loadProperties(String propFileName) throws IOException {
-        InputStream inputstream = App.class.getClassLoader().getResourceAsStream(propFileName);
-        if (inputstream == null) throw new FileNotFoundException();
-        properties.load(inputstream);
-    }
-
     static {
         try {
             loadProperties("app.properties");
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void loadProperties(String propFileName) throws IOException {
+        InputStream inputstream = App.class.getClassLoader().getResourceAsStream(propFileName);
+        if (inputstream == null) throw new FileNotFoundException();
+        properties.load(inputstream);
     }
 
     public static String getProperty(String s) {
@@ -41,9 +40,10 @@ public class App {
         log.info("Starting...");
         Thread.sleep(2000);
 
-        Connection connection = DBCPDataSource.getConnection();
-        DatabaseMetaData dbmd = connection.getMetaData();
-        log.info("Connected to :"+dbmd.getDatabaseProductName()+" "+dbmd.getDatabaseProductVersion());
+        try (Connection connection = DBCPDataSource.getConnection()) {
+            DatabaseMetaData dbmd = connection.getMetaData();
+            log.info("Connected to :" + dbmd.getDatabaseProductName() + " " + dbmd.getDatabaseProductVersion());
+        }
 
     }
 
