@@ -1,0 +1,12 @@
+version: "3.8"
+services:
+  db:
+    image: postgres:12
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: password
+  myapp:
+    build: .
+volumes:
+  pgdata: {}
