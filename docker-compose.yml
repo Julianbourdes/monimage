@@ -1,12 +1,18 @@
 version: "3.8"
 services:
-  db:
+  pg12:
     image: postgres:12
+    ports:
+      - 5432:5432
     volumes:
-      - pgdata:/var/lib/postgresql/data
+      - pgdata1:/var/lib/postgresql/data
     environment:
-      POSTGRES_PASSWORD: password
+        - POSTGRES_USER=postgres
+        - POSTGRES_PASSWORD=password
+        - POSTGRES_DB=mydb
   myapp:
     build: .
+    links:
+        - "pg12:db"
 volumes:
-  pgdata: {}
+  pgdata1: {}
