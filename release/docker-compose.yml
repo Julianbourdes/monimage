@@ -24,7 +24,7 @@ services:
   myapp:
     image: brunoe/monimage_myapp
     links:
-      - "pg13:db"
+      - "pg12:db"
 volumes:
   pgdata12: {}
   pgdata13: {}
